@@ -21,21 +21,24 @@ module.exports = function () {
         var node = {}
 
         var title = pr.select('div.thumb>a')
-		title.getAttribute('href', function (href) {
+        title.getAttribute('href', function (href) {
             mg({urlOfTitle: homepage.url + href})
         })
         title.getAttribute('title', function (title) {
             mg({title: title})
         })
         var circle = pr.select('div.title>p.circle>a')
-		circle.getAttribute('href', function (href) {
+        circle.getAttribute('href', function (href) {
             mg({urlOfCircle: homepage.url + href})
         })
-		circle.getAttribute('title', function (title) {
+        circle.getAttribute('title', function (title) {
             mg({circle: title})
         })
         pr.select('div.thumb>a>img').getAttribute('src', function (src) {
-            mg({srcOfThumbnail: homepage.url + src.replace(/&amp;/g, '&')})
+//            mg({srcOfThumbnail: homepage.url + src.replace(/&amp;/g, '&')})
+            mg({srcOfThumbnail: homepage.url + src.replace(/&amp;/g, '&')
+                                                  .replace(/width=\d+?/, 'width=450')
+                                                  .replace(/height=\d+?/, 'height=450')})
         })
 
         product.createReadStream().pipe(pr)

@@ -1,0 +1,53 @@
+{
+  "name": "doozin",
+  "version": "0.0.1",
+  "description": "doujinshop-meta-search",
+  "main": "app.js",
+  "scripts": {
+    "test": "NODE_PATH=lib tape t/*.js",
+    "build": "browserify ./app/main.js -o ./public/js/bundle.js"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "author": "ishiduca@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "component-bind": "^1.0.0",
+    "deepmerge": "^0.2.10",
+    "duplexer": "^0.1.1",
+    "duplexer2": "0.0.2",
+    "event-stream": "^3.3.1",
+    "express": "^4.12.4",
+    "hjs": "0.0.6",
+    "hyperquest": "^1.2.0",
+    "iconv-lite": "^0.4.8",
+    "object-assign": "^2.0.0",
+    "printf": "^0.2.1",
+    "react": "^0.12.2",
+    "shoe": "0.0.15",
+    "slows": "0.0.2",
+    "stream-reduce": "^1.0.3",
+    "through": "^2.3.7",
+    "through2": "^0.6.5",
+    "trumpet": "^1.7.1",
+    "urlencode": "^1.0.0",
+    "validatoo": "0.0.4"
+  },
+  "config": {
+    "server": {
+      "port": 3000
+    },
+    "static": {
+      "root": "./public"
+    },
+    "shoes": {
+      "url": "/shoes"
+    }
+  },
+  "devDependencies": {
+    "reactify": "^1.1.1"
+  }
+}

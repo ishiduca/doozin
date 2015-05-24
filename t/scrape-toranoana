@@ -1,0 +1,10 @@
+var fs      = require('fs')
+var path    = require('path')
+var scrape  = require('../services/toranoana/lib/scrape')
+var through = require('through')
+
+fs.createReadStream(path.join(__dirname, 'toranoana.result.html'))
+.pipe(scrape())
+.pipe(through(function (node) {
+	console.log(node)
+}))

@@ -1,6 +1,6 @@
 {
   "name": "doozin",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "doujinshop-meta-search",
   "main": "app.js",
   "scripts": {

@@ -1,7 +1,7 @@
 'use strict'
 var trumpet  = require('trumpet')
-var duplexer = require('duplexer')
-var through  = require('through')
+var duplexer = require('duplexer2')
+var through  = require('through2')
 var reduce   = require('stream-reduce')
 var merge    = require('deepmerge')
 var homepage = require('../../configs/homepage')
@@ -9,7 +9,7 @@ var homepage = require('../../configs/homepage')
 module.exports = function scrape () {
     var ended = false
     var tr  = trumpet()
-    var rs  = through()
+    var rs  = through({objectMode: true})
     var dup = duplexer(tr, rs)
 
     tr.once('end', function () { ended = true })

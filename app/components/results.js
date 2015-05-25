@@ -1,4 +1,4 @@
-'us strict'
+'use strict'
 var React = require('react')
 var storeResults = require('../stores/results')
 var CircleInfo   = require('./circle-info')
@@ -9,17 +9,19 @@ var Results = React.createClass({
         return (
             <section>
                 {
-                    list.map(function (services, i) {
+                    list.map(function (commands, i) {
                         return (
                             <div key={i}>
+                                <h3>{Object.keys(commands)[0]}</h3>
                                 {
-                                    services.map(function (node, ii) {
+                                    commands[Object.keys(commands)[0]].map(function (services, ii) {
                                         return (
                                             <div key={ii}>
+                                                <h4>{Object.keys(services)[0]}</h4>
                                                 {
-                                                    node.map(function (a, iii) {
+                                                    services[Object.keys(services)[0]].map(function (circleInfo, iii) {
                                                         return (
-                                                            <CircleInfo key={iii} data={a} />
+                                                            <CircleInfo key={iii} data={circleInfo} />
                                                         )
                                                     })
                                                 }

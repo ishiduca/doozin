@@ -6342,8 +6342,8 @@ var styles = {
 
 var ids = []
 
-var displayMaxShows = 3
-var displayInterval = 3000
+var displayMaxShows = 4
+var displayInterval = 4200
 var interval        = 800
 var blocktime       = displayMaxShows * interval + displayInterval + 1000
 
@@ -6396,7 +6396,7 @@ var Notify = React.createClass({displayName: "Notify",
                 id: "notify", 
                 style: {
                     position: 'fixed'
-                  , top:      '64px'
+                  , top:      '12px'
                   , right:    '0'
                   , zIndex:   '4'
                 }
@@ -6444,7 +6444,7 @@ module.exports = Notify
 
 
 },{"../stores/notify":39,"deepmerge":43,"react":198,"slows":201}],35:[function(require,module,exports){
-'us strict'
+'use strict'
 var React = require('react')
 var storeResults = require('../stores/results')
 var CircleInfo   = require('./circle-info')
@@ -6455,17 +6455,19 @@ var Results = React.createClass({displayName: "Results",
         return (
             React.createElement("section", null, 
                 
-                    list.map(function (services, i) {
+                    list.map(function (commands, i) {
                         return (
                             React.createElement("div", {key: i}, 
+                                React.createElement("h3", null, Object.keys(commands)[0]), 
                                 
-                                    services.map(function (node, ii) {
+                                    commands[Object.keys(commands)[0]].map(function (services, ii) {
                                         return (
                                             React.createElement("div", {key: ii}, 
+                                                React.createElement("h4", null, Object.keys(services)[0]), 
                                                 
-                                                    node.map(function (a, iii) {
+                                                    services[Object.keys(services)[0]].map(function (circleInfo, iii) {
                                                         return (
-                                                            React.createElement(CircleInfo, {key: iii, data: a})
+                                                            React.createElement(CircleInfo, {key: iii, data: circleInfo})
                                                         )
                                                     })
                                                 
@@ -6541,10 +6543,13 @@ window.onload = function () {
 
     actFromShoes.pipe(dispatcher)
 
-    dispatcher.pipe(storeErrors)
-    dispatcher.pipe(storeShoesState)
-    dispatcher.pipe(storeResults)
-	dispatcher.pipe(storeNotify)
+    ;[  storeErrors
+      , storeShoesState
+      , storeResults
+      , storeNotify
+    ].forEach(function (store) {
+        dispatcher.pipe(store)
+    })
 }
 
 var React = require('react')
@@ -6577,10 +6582,28 @@ module.exports = through(function (payload) {
 },{"printf":52,"through":203}],40:[function(require,module,exports){
 'use strict'
 var through = require('through')
-
+// table = {
+//     _command: {
+//         _service: {
+//             id: {circleInfo}
+//           , id: ...
+//         }
+//     }
+// }
 var table       = {}
+// commandlist = [ _command, _command, ...] 
 var commandlist = []
-
+// list = [
+//     {
+//         _command: [
+//             {
+//                 _service: [
+//                     {cirleInfo}
+//                 ]
+//             }
+//         ]
+//     }
+// ]
 module.exports = through(function (payload) {
     if (payload.actionType === 'find.result') {
         var value    = payload.value
@@ -6598,11 +6621,15 @@ module.exports = through(function (payload) {
 
         this.push(
             commandlist.map(function (_command) {
-                return Object.keys(table[_command]).map(function (_service) {
-                    return Object.keys(table[_command][_service]).map(function (id) {
+                var w = {}
+                w[_command] = Object.keys(table[_command]).map(function (_service) {
+                    var w = {}
+                    w[_service] = Object.keys(table[_command][_service]).map(function (id) {
                         return table[_command][_service][id]
                     })
+                    return w
                 })
+                return w
             })
         )
     }

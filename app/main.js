@@ -27,10 +27,13 @@ window.onload = function () {
 
     actFromShoes.pipe(dispatcher)
 
-    dispatcher.pipe(storeErrors)
-    dispatcher.pipe(storeShoesState)
-    dispatcher.pipe(storeResults)
-	dispatcher.pipe(storeNotify)
+    ;[  storeErrors
+      , storeShoesState
+      , storeResults
+      , storeNotify
+    ].forEach(function (store) {
+        dispatcher.pipe(store)
+    })
 }
 
 var React = require('react')

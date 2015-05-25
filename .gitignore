@@ -4,3 +4,4 @@
 node_modules/
 npm-debug.log
 xt/
+public/js/bundle.js

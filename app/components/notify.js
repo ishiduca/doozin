@@ -24,8 +24,8 @@ var styles = {
 
 var ids = []
 
-var displayMaxShows = 3
-var displayInterval = 3000
+var displayMaxShows = 4
+var displayInterval = 4200
 var interval        = 800
 var blocktime       = displayMaxShows * interval + displayInterval + 1000
 
@@ -78,7 +78,7 @@ var Notify = React.createClass({
                 id="notify"
                 style={{
                     position: 'fixed'
-                  , top:      '64px'
+                  , top:      '12px'
                   , right:    '0'
                   , zIndex:   '4'
                 }}

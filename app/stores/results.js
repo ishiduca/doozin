@@ -1,9 +1,27 @@
 'use strict'
 var through = require('through')
-
+// table = {
+//     _command: {
+//         _service: {
+//             id: {circleInfo}
+//           , id: ...
+//         }
+//     }
+// }
 var table       = {}
+// commandlist = [ _command, _command, ...] 
 var commandlist = []
-
+// list = [
+//     {
+//         _command: [
+//             {
+//                 _service: [
+//                     {cirleInfo}
+//                 ]
+//             }
+//         ]
+//     }
+// ]
 module.exports = through(function (payload) {
     if (payload.actionType === 'find.result') {
         var value    = payload.value
@@ -21,11 +39,15 @@ module.exports = through(function (payload) {
 
         this.push(
             commandlist.map(function (_command) {
-                return Object.keys(table[_command]).map(function (_service) {
-                    return Object.keys(table[_command][_service]).map(function (id) {
+                var w = {}
+                w[_command] = Object.keys(table[_command]).map(function (_service) {
+                    var w = {}
+                    w[_service] = Object.keys(table[_command][_service]).map(function (id) {
                         return table[_command][_service][id]
                     })
+                    return w
                 })
+                return w
             })
         )
     }

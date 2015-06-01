@@ -24,6 +24,7 @@
     "hjs": "0.0.6",
     "hyperquest": "^1.2.0",
     "iconv-lite": "^0.4.8",
+    "level": "^1.0.0",
     "object-assign": "^2.0.0",
     "printf": "^0.2.1",
     "react": "^0.12.2",
@@ -45,6 +46,14 @@
     },
     "shoes": {
       "url": "/shoes"
+    },
+    "level": {
+      "count": {
+        "options": {
+          "keyEncoding": "json"
+        },
+        "location": "dbs/"
+      }
     }
   },
   "devDependencies": {

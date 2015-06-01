@@ -1,6 +1,6 @@
 {
   "name": "doozin",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "doujinshop-meta-search",
   "main": "app.js",
   "scripts": {
@@ -52,7 +52,7 @@
         "options": {
           "keyEncoding": "json"
         },
-        "location": "dbs/"
+        "location": "dbs/count"
       }
     }
   },

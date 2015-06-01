@@ -8,7 +8,8 @@ var port    = process.env.PORT || config.server.port
 var root    = path.join(__dirname, config.static.root)
 
 app.use(express.static(root))
-app.use(require('dashboard'))
+app.use('/', require('dashboard'))
+app.use('/command/used', require('access-count'))
 require('shoes').install(app.listen(port), config.shoes.url)
 
 console.log('[process.pid - %s]', process.pid)
